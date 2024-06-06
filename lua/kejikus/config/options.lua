@@ -78,3 +78,16 @@ vim.opt.incsearch = true
 -- vim.opt.foldcolumn = '1'
 -- vim.opt.foldlevel = 99
 -- vim.opt.foldlevelstart = 99
+
+-- [[ Diagnostics ]]
+vim.diagnostic.config {
+  severity_sort = { reverse = true },
+  virtual_text = { severity = { min = vim.diagnostic.severity.WARN } },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '>',
+      [vim.diagnostic.severity.WARN] = '>',
+      [vim.diagnostic.severity.INFO] = '>',
+    },
+  },
+}

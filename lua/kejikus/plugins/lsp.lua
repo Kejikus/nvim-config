@@ -31,12 +31,12 @@ return {
         end,
       })
 
-      -- LSP servers and clients are able to communicate to each other what features they support.
-      --  By default, Neovim doesn't support everything that is in the LSP specification.
       --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
       --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+
+      -- Add capabilities of nvim-ufo folding plugin
       capabilities.textDocument.foldingRange = {
         dynamicRegistration = false,
         lineFoldingOnly = true,
@@ -63,7 +63,24 @@ return {
         -- tsserver = {},
         --
 
-        pyright = {},
+        basedpyright = {
+          settings = {
+            basedpyright = {
+              analysis = {
+                diagnosticSeverityOverrides = {
+                  reportAny = false,
+                  reportInvalidCast = false,
+                  reportUnusedCallResult = false,
+                  reportUnknownMemberType = 'information',
+                  reportUnknownVariableType = 'information',
+                  reportUnknownParameterType = false,
+                  reportMissingParameterType = false,
+                  reportMissingTypeArgument = false,
+                },
+              },
+            },
+          },
+        },
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
@@ -81,12 +98,6 @@ return {
         stylua = {}, -- Used to format Lua code
       }
 
-      -- Ensure the servers and tools above are installed
-      --  To check the current status of installed tools and/or manually install
-      --  other tools, you can run
-      --    :Mason
-      --
-      --  You can press `g?` for help in this menu.
       require('mason').setup()
 
       -- You can add other tools here that you want Mason to install
