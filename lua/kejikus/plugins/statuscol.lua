@@ -23,7 +23,12 @@ return {
       end
 
       require('statuscol').setup {
-        bt_ignore = { 'nofile' },
+        bt_ignore = {
+          'nofile',
+          'terminal',
+          'help',
+          'prompt',
+        },
         relculright = true,
         segments = {
           {

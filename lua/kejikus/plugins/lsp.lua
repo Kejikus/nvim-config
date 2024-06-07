@@ -71,6 +71,8 @@ return {
                   reportAny = false,
                   reportInvalidCast = false,
                   reportUnusedCallResult = false,
+                  reportImplicitStringConcatenation = 'information',
+                  reportMissingTypeStubs = 'information',
                   reportUnknownMemberType = 'information',
                   reportUnknownVariableType = 'information',
                   reportUnknownParameterType = false,
