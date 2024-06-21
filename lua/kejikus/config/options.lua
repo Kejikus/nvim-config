@@ -1,11 +1,6 @@
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
--- [[ Setting options ]]
--- See `:help vim.opt`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
-
 -- Make line numbers default
 vim.opt.number = true
 -- Add relative line numbers, keep absolute number for current line
@@ -16,14 +11,20 @@ vim.opt.mouse = 'a'
 
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
+vim.o.laststatus = 3
 
 -- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
 -- vim.opt.clipboard = 'unnamedplus'
 
 -- Enable break indent
 vim.opt.breakindent = true
+
+-- Indenting options
+vim.o.expandtab = true
+vim.o.shiftwidth = 2
+vim.o.smartindent = true
+vim.o.tabstop = 2
+vim.o.softtabstop = 2
 
 -- Save undo history
 vim.opt.undofile = true
@@ -36,7 +37,7 @@ vim.opt.smartcase = true
 vim.opt.signcolumn = 'yes'
 
 -- Decrease update time
-vim.opt.updatetime = 50
+vim.opt.updatetime = 250
 
 -- Decrease mapped sequence wait time
 -- Displays which-key popup sooner
@@ -73,6 +74,9 @@ vim.opt.hlsearch = false
 -- Set search to be incremental (highlight as you type)
 vim.opt.incsearch = true
 
+-- Always show tabline
+vim.o.showtabline = 2
+
 -- [[ Folding ]]
 -- vim.opt.foldenable = true
 -- vim.opt.foldcolumn = '1'
@@ -88,6 +92,18 @@ vim.diagnostic.config {
       [vim.diagnostic.severity.ERROR] = '',
       [vim.diagnostic.severity.WARN] = '',
       [vim.diagnostic.severity.INFO] = '',
+      [vim.diagnostic.severity.HINT] = '',
     },
   },
 }
+
+-- [[ Providers ]]
+-- Disable some default providers
+vim.g.loaded_node_provider = 0
+-- vim.g.loaded_python3_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+
+-- Add binaries installed by mason.nvim to path
+local is_windows = vim.fn.has 'win32' ~= 0
+vim.env.PATH = vim.fn.stdpath 'data' .. '/mason/bin' .. (is_windows and ';' or ':') .. vim.env.PATH

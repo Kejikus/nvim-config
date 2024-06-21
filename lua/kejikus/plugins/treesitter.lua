@@ -50,23 +50,21 @@ return {
 
           goto_next_start = {
             [']p'] = '@parameter.inner',
+            [']f'] = '@function.outer',
+            [']c'] = '@class.outer',
           },
           goto_previous_start = {
             ['[p'] = '@parameter.inner',
+            ['[f'] = '@function.outer',
+            ['[c'] = '@class.outer',
           },
 
-          goto_next = {
-            [']f'] = '@function.outer',
-            [']F'] = '@function.inner',
-            [']c'] = '@class.outer',
-            [']C'] = '@class.inner',
-          },
-          goto_previous = {
-            ['[f'] = '@function.outer',
-            ['[F'] = '@function.inner',
-            ['[c'] = '@class.outer',
-            ['[C'] = '@class.inner',
-          },
+          -- goto_next = {
+          --   [']C'] = '@class.inner',
+          -- },
+          -- goto_previous = {
+          --   ['[C'] = '@class.inner',
+          -- },
         },
       },
     },
@@ -102,9 +100,9 @@ return {
       'nvim-treesitter/nvim-treesitter',
     },
     opts = {
-      max_lines = 15,
+      max_lines = 5,
       multiline_threshold = 2,
-      mode = 'topline',
+      -- mode = 'topline',
     },
   },
   {

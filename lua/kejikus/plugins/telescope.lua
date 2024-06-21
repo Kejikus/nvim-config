@@ -65,6 +65,7 @@ return {
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
+      pcall(require('telescope').load_extension, 'workspaces')
 
       -- See `:help telescope.builtin`
       require('kejikus.config.remaps').set_telescope_keymaps()

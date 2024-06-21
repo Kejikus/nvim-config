@@ -71,11 +71,11 @@ return {
         },
       }
 
-      vim.api.nvim_create_autocmd('CursorHold', {
-        callback = function()
-          vim.wo.numberwidth = vim.wo.numberwidth
-        end,
-      })
+      -- vim.api.nvim_create_autocmd('CursorHold', {
+      --   callback = function()
+      --     vim.wo.numberwidth = vim.wo.numberwidth
+      --   end,
+      -- })
     end,
   },
 }

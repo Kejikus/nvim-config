@@ -16,10 +16,21 @@ function M.set_common_autocmd()
     desc = 'Set cwd if directory was opened on enter',
     group = vim.api.nvim_create_augroup('set-cwd-on-enter', { clear = true }),
     callback = function()
-      vim.print('On VimEnter: ' .. vim.fn.expand '%')
       local entry_dir = vim.fn.expand '%'
       if vim.fn.isdirectory(entry_dir) == 1 then
         vim.fn.chdir(entry_dir)
+      end
+    end,
+  })
+
+  vim.api.nvim_create_autocmd('BufWinEnter', {
+    desc = 'Disable foldcolumn for unnecessary buffer types',
+    callback = function()
+      local buf_types = { 'nofile', 'help', 'terminal' }
+      local btype = vim.o.buftype
+      if vim.tbl_contains(buf_types, btype) then
+        vim.wo.foldenable = false
+        vim.wo.foldcolumn = '0'
       end
     end,
   })

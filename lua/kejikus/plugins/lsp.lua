@@ -71,6 +71,8 @@ return {
                   reportAny = false,
                   reportInvalidCast = false,
                   reportUnusedCallResult = false,
+                  reportImplicitOverride = false,
+                  reportUnusedFunction = 'information',
                   reportImplicitStringConcatenation = 'information',
                   reportMissingTypeStubs = 'information',
                   reportUnknownMemberType = 'information',
@@ -83,6 +85,57 @@ return {
             },
           },
         },
+
+        -- pylsp has plugins that are not installed by default
+        -- Use :PylspInstall to install them
+        pylsp = {
+          settings = {
+            pylsp = {
+              configurationSources = { 'flake8' },
+              plugins = {
+                -- formatters
+                black = { enabled = true },
+                autopep8 = { enabled = false },
+                yapf = { enabled = false },
+
+                -- linters
+                flake8 = {
+                  enabled = true,
+                  maxLineLength = 120,
+                  indentSize = 4,
+                },
+                pyflakes = { enabled = false },
+                pycodestyle = { enabled = false },
+
+                -- type checkers
+                pyre = { enabled = true },
+                mypy = { enabled = true },
+
+                -- autocompletion
+                jedi_completion = { fuzzy = true },
+                rope_autoimport = {
+                  enabled = true,
+                  memory = true,
+                },
+
+                -- import sorter
+                pyls_isort = { enabled = true },
+              },
+            },
+          },
+        },
+
+        pyre = {
+          root_dir = function(filename, _)
+            -- see :h lspconfig-root-detection
+            local root_files = {
+              'pyproject.toml',
+              'requirements.txt',
+            }
+            return require('lspconfig').util.root_pattern(unpack(root_files))(filename)
+          end,
+        },
+
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
@@ -100,6 +153,11 @@ return {
         stylua = {}, -- Used to format Lua code
       }
 
+      local disabled_servers = {
+        'basedpyright',
+        'pyre',
+      }
+
       require('mason').setup()
 
       -- You can add other tools here that you want Mason to install
@@ -110,6 +168,9 @@ return {
       require('mason-lspconfig').setup {
         handlers = {
           function(server_name)
+            if vim.tbl_contains(disabled_servers, server_name) then
+              return
+            end
             local server = servers[server_name] or {}
             -- This handles overriding only values explicitly passed
             -- by the server configuration above. Useful when disabling

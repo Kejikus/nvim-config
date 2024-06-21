@@ -2,8 +2,8 @@ local M = {}
 
 function M.set_common_keymaps()
   -- Move selected text up and down, re-indent it and keep selection
-  vim.keymap.set('v', 'J', "<cmd>m '>+1<CR>gv=gv", { desc = 'Move selected lines up' })
-  vim.keymap.set('v', 'K', "<cmd>m '<-2<CR>gv=gv", { desc = 'Move selected lines down' })
+  -- vim.keymap.set('v', 'J', "<cmd>m '>+1<CR>gv=gv", { desc = 'Move selected lines up' })
+  -- vim.keymap.set('v', 'K', "<cmd>m '<-2<CR>gv=gv", { desc = 'Move selected lines down' })
 
   -- Stay at the same spot on line join using local mark "z"
   vim.keymap.set('n', 'J', 'mzJ`z', { desc = 'Join lines without moving' })
@@ -39,7 +39,7 @@ function M.set_common_keymaps()
   --
   -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
   -- or just use <C-\><C-n> to exit terminal mode
-  vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+  vim.keymap.set('t', '<C-]>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
   -- Keybinds to make split navigation easier.
   --  Use CTRL+<hjkl> to switch between windows
@@ -56,12 +56,13 @@ function M.set_common_keymaps()
   -- vim.keymap.set('n', '<A-l>', '<C-w>>', { desc = 'Increase window width' })
 
   -- Plugin Mappings
-  vim.keymap.set('n', '<C-t>', '<cmd>ToggleTerm 1<CR>', { desc = 'Toggle Terminal 1' })
+  vim.keymap.set('n', '<leader>tt', '<cmd>ToggleTerm 1<CR>', { desc = 'Toggle Terminal 1' })
 
   -- Open Commands
   vim.keymap.set('n', '<leader>of', '<cmd>Neotree toggle<CR>', { desc = '[O]pen [F]ile Tree' })
   vim.keymap.set('n', '<leader>ou', '<cmd>UndotreeToggle<CR>', { desc = '[O]pen [U]ndotree' })
   vim.keymap.set('n', '<leader>ot', ':ToggleTerm ', { desc = '[O]pen [T]erminal...' })
+  vim.keymap.set('n', '<leader>ow', '<cmd>Telescope workspaces<CR>', { desc = '[O]pen [W]orkspace' })
 
   -- Project Commands
   vim.keymap.set('n', '<leader>pva', function()
@@ -72,6 +73,12 @@ function M.set_common_keymaps()
     vim.cmd.PoetvDeactivate()
     vim.cmd.LspRestart()
   end, { desc = '[P]roject [V]irtualenv [D]eactivate' })
+
+  -- Tab Commands
+  vim.keymap.set('n', '<leader>rt', function()
+    local tab_name = require 'tabby.feature.tab_name'
+    return '<cmd>silent Tabby rename_tab ' .. vim.fn.input('New tab name: ', tab_name.get(0)) .. '<CR>'
+  end, { desc = '[R]ename [T]ab' })
 end
 
 function M.set_telescope_keymaps()
