@@ -3,6 +3,7 @@ return {
   'petobens/poet-v', -- Activate/deactivate Python virtualenv
   'tpope/vim-fugitive',
   'mbbill/undotree',
+  'mfussenegger/nvim-dap',
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },

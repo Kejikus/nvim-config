@@ -72,6 +72,9 @@ return {
                   reportInvalidCast = false,
                   reportUnusedCallResult = false,
                   reportImplicitOverride = false,
+                  reportIgnoreCommentWithoutRule = false,
+                  reportMatchNotExhaustive = 'information',
+                  reportUntypedFunctionDecorator = 'information',
                   reportUnusedFunction = 'information',
                   reportImplicitStringConcatenation = 'information',
                   reportMissingTypeStubs = 'information',
@@ -154,7 +157,7 @@ return {
       }
 
       local disabled_servers = {
-        'basedpyright',
+        -- 'basedpyright',
         'pyre',
       }
 

@@ -171,11 +171,18 @@ function M.set_lsp_keymaps(event)
 end
 
 function M.set_toggleterm_keymaps()
-  local Terminal = require('toggleterm.terminal').Terminal
-  local lazygit = Terminal:new { cmd = 'lazygit', hidden = true, direction = 'float' }
-
   local function _lazygit_toggle()
-    lazygit:toggle()
+    local Terminal = require('toggleterm.terminal').Terminal
+    local lazygit = Terminal:new {
+      cmd = 'lazygit',
+      hidden = true,
+      direction = 'float',
+      on_close = function(term)
+        term.on_close = nil
+        term:shutdown()
+      end,
+    }
+    lazygit:open()
   end
 
   vim.keymap.set('n', '<leader>og', _lazygit_toggle, { desc = '[O]pen Lazy[G]it' })
