@@ -80,6 +80,7 @@ return {
                   reportMissingTypeStubs = 'information',
                   reportUnknownMemberType = 'information',
                   reportUnknownVariableType = 'information',
+                  reportUnknownArgumentType = 'information',
                   reportUnknownParameterType = false,
                   reportMissingParameterType = false,
                   reportMissingTypeArgument = false,

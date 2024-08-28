@@ -2,8 +2,7 @@ local M = {}
 
 function M.set_common_autocmd()
   -- Highlight when yanking (copying) text
-  --  Try it with `yap` in normal mode
-  --  See `:help vim.highlight.on_yank()`
+  -- See `:help vim.highlight.on_yank()`
   vim.api.nvim_create_autocmd('TextYankPost', {
     desc = 'Highlight when yanking (copying) text',
     group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
@@ -34,26 +33,6 @@ function M.set_common_autocmd()
       end
     end,
   })
-
-  -- vim.api.nvim_create_autocmd('FileType', {
-  --   desc = 'Set folding method based on treesitter support',
-  --   group = vim.api.nvim_create_augroup('set-folding-on-file-type', { clear = true }),
-  --   callback = function()
-  --     if require('nvim-treesitter.parsers').has_parser() then
-  --       vim.opt.foldmethod = 'expr'
-  --       vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-  --     else
-  --       vim.opt.foldmethod = 'syntax'
-  --     end
-  --   end,
-  -- })
-  --
-  -- vim.api.nvim_create_autocmd('BufReadPost', {
-  --   desc = 'Open all folds on first buffer load',
-  --   callback = function()
-  --     vim.cmd 'normal zR'
-  --   end,
-  -- })
 end
 
 -- Add documentation highlight on CursorHold

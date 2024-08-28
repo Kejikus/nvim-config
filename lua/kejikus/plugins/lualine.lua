@@ -147,7 +147,7 @@ return {
       options = {
         section_separators = { left = '', right = '' },
         component_separators = { left = '', right = '' },
-        theme = 'tokyonight',
+        theme = 'auto',
         globalstatus = true,
       },
       extensions = {

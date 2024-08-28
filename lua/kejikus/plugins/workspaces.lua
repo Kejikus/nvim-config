@@ -4,7 +4,7 @@ return {
     opts = {
       cd_type = 'tab',
       hooks = {
-        open = { 'Neotree open' },
+        open = { 'Neotree show' },
       },
     },
   },
