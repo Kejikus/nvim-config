@@ -35,6 +35,10 @@ return {
               added = '+',
             },
           },
+          {
+            require('noice').api.status.mode.get,
+            cond = require('noice').api.status.mode.has,
+          },
           -- add empty section to center filename
           {
             '%=',
