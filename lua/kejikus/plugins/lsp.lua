@@ -66,6 +66,7 @@ return {
         basedpyright = {
           settings = {
             basedpyright = {
+              -- disableLanguageServices = true,
               analysis = {
                 diagnosticSeverityOverrides = {
                   reportAny = false,
@@ -121,6 +122,10 @@ return {
                   enabled = true,
                   memory = true,
                 },
+
+                -- LSP services
+                jedi_references = { enabled = false },
+                jedi_hover = { enabled = false },
 
                 -- import sorter
                 pyls_isort = { enabled = true },
