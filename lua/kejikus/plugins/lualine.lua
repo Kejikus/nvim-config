@@ -11,6 +11,7 @@ return {
     'nvim-lualine/lualine.nvim',
     dependencies = {
       'nvim-tree/nvim-web-devicons',
+      'folke/noice.nvim',
     },
     opts = {
       sections = {
@@ -35,10 +36,10 @@ return {
               added = '+',
             },
           },
-          -- {
-          --   require('noice').api.status.mode.get,
-          --   cond = require('noice').api.status.mode.has,
-          -- },
+          {
+            require('noice').api.status.mode.get,
+            cond = require('noice').api.status.mode.has,
+          },
           -- add empty section to center filename
           {
             '%=',
