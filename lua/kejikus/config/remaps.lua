@@ -63,7 +63,7 @@ function M.set_common_keymaps()
   vim.keymap.set('n', '<leader>ou', '<cmd>UndotreeToggle<CR>', { desc = '[O]pen [U]ndotree' })
   vim.keymap.set('n', '<leader>ot', ':ToggleTerm ', { desc = '[O]pen [T]erminal...' })
   vim.keymap.set('n', '<leader>ow', '<cmd>Telescope workspaces<CR>', { desc = '[O]pen [W]orkspace' })
-  vim.keymap.set('n', '<leader>on', '<cmd>Neotest summary<CR>', { desc = 'Toggle Terminal 1' })
+  vim.keymap.set('n', '<leader>on', '<cmd>Neotest summary<CR>', { desc = '[O]pen [N]eotest panel' })
 
   -- Project Commands
   vim.keymap.set('n', '<leader>pva', function()
@@ -200,6 +200,11 @@ function M.set_dap_keymaps()
   vim.keymap.set('n', '<leader>tB', function()
     dap.toggle_breakpoint()
   end, { desc = '[T]oggle [B]reakpoint' })
+end
+
+function M.set_dbee_keymaps()
+  local dbee = require 'dbee'
+  vim.keymap.set('n', '<leader>od', dbee.toggle, { desc = '[O]pen [D]bee UI' })
 end
 
 return M

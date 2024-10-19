@@ -21,7 +21,7 @@ return {
             end
 
             vim.notify('vim.g.obsidian_vault_path is not set', vim.log.levels.INFO)
-            return '~/vaults/personal'
+            return vim.fn.expand '~'
           end,
         },
         {

@@ -9,6 +9,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 vim.g.python3_host_prog = '/usr/bin/python'
+vim.g.obsidian_vault_path = vim.fn.expand '~' .. '/Obsidian/Knowledge Database ACCESS'
 
 -- My own config import
 require 'kejikus.config'
