@@ -88,6 +88,7 @@ return {
                   reportUnknownParameterType = false,
                   reportMissingParameterType = false,
                   reportMissingTypeArgument = false,
+                  reportUnannotatedClassAttribute = false,
                 },
               },
             },
