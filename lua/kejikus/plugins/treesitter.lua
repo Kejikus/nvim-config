@@ -11,9 +11,11 @@ return {
         'lua',
         'luadoc',
         'markdown',
+        'markdown_inline',
         'vim',
         'vimdoc',
         'python',
+        'helm',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,

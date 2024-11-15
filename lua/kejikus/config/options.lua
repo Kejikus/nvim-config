@@ -77,6 +77,14 @@ vim.opt.incsearch = true
 -- Always show tabline
 vim.o.showtabline = 2
 
+-- Concealed text is hidden unless there are display character assigned
+-- Needed for obsidian.nvim
+vim.o.conceallevel = 2
+
+-- Disable timeout for key combinations
+-- NOTE: Disabled because of which-key.nvim bug with surround plugins
+vim.o.timeout = false
+
 -- [[ Folding ]]
 -- vim.opt.foldenable = true
 -- vim.opt.foldcolumn = '1'

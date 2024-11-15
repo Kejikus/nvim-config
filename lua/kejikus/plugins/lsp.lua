@@ -63,6 +63,8 @@ return {
         --
 
         gopls = {},
+        helm_ls = {},
+        ['markdownlint-cli2'] = {},
 
         basedpyright = {
           settings = {
@@ -107,11 +109,17 @@ return {
                 -- linters
                 flake8 = {
                   enabled = true,
-                  maxLineLength = 120,
+                  maxLineLength = 100,
                   indentSize = 4,
                 },
                 pyflakes = { enabled = false },
                 pycodestyle = { enabled = false },
+                ruff = {
+                  enabled = true,
+                  lineLength = 100,
+                  formatEnabled = true,
+                  format = { 'I' },
+                },
 
                 -- type checkers
                 pyre = { enabled = true },
@@ -122,6 +130,9 @@ return {
                 rope_autoimport = {
                   enabled = true,
                   memory = true,
+                },
+                rope_completion = {
+                  enabled = true,
                 },
 
                 -- LSP services
