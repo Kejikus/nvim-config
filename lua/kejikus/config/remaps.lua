@@ -12,6 +12,12 @@ function M.set_common_keymaps()
   vim.keymap.set('n', 'n', 'nzz', { desc = 'Next search hit, stay at the center' })
   vim.keymap.set('n', 'N', 'Nzz', { desc = 'Previous search hit, stay at the center' })
 
+  -- Scroll will stay at the center of the screen
+  vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Scroll down half-screen, stay at the center' })
+  vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Scroll up half-screen, stay at the center' })
+  vim.keymap.set('n', '<C-b>', '<C-d><C-d>zz', { desc = 'Scroll up (backwards) one screen, stay at the center' })
+  vim.keymap.set('n', '<C-f>', '<C-d><C-d>zz', { desc = 'Scroll down (forward) one screen, stay at the center' })
+
   -- Paste over without losing what you're pasting
   vim.keymap.set('x', '<leader>p', '"_dP', { desc = 'Paste over preserving register' })
 
@@ -55,7 +61,7 @@ function M.set_common_keymaps()
   vim.keymap.set('n', '<A-=>', '<C-w>+', { desc = 'Increase window height' })
   vim.keymap.set('n', '<A-.>', '<C-w>>', { desc = 'Increase window width' })
 
-  -- Plugin Mappings
+  -- Toggle Commands
   vim.keymap.set('n', '<leader>tt', '<cmd>ToggleTerm 1<CR>', { desc = 'Toggle Terminal 1' })
 
   -- Open Commands
@@ -66,20 +72,16 @@ function M.set_common_keymaps()
   vim.keymap.set('n', '<leader>on', '<cmd>Neotest summary<CR>', { desc = '[O]pen [N]eotest panel' })
 
   -- Project Commands
-  vim.keymap.set('n', '<leader>pva', function()
-    vim.cmd.PoetvActivate()
-    vim.cmd.LspRestart()
-  end, { desc = '[P]roject [V]irtualenv [A]ctivate' })
-  vim.keymap.set('n', '<leader>pvd', function()
-    vim.cmd.PoetvDeactivate()
-    vim.cmd.LspRestart()
-  end, { desc = '[P]roject [V]irtualenv [D]eactivate' })
+  vim.keymap.set('n', '<leader>pvs', '<cmd>VenvSelect<cr>', { desc = '[P]roject [V]irtualenv [S]elect' })
 
   -- Tab Commands
   vim.keymap.set('n', '<leader>rt', function()
     local tab_name = require 'tabby.feature.tab_name'
     return '<cmd>silent Tabby rename_tab ' .. vim.fn.input('New tab name: ', tab_name.get(0)) .. '<CR>'
   end, { desc = '[R]ename [T]ab' })
+
+  -- Noice commands
+  vim.keymap.set('n', '<leader>nd', '<cmd>NoiceDismiss<cr>', { desc = '[N]oice [D]ismiss' })
 end
 
 function M.set_telescope_keymaps()
@@ -205,6 +207,19 @@ end
 function M.set_dbee_keymaps()
   local dbee = require 'dbee'
   vim.keymap.set('n', '<leader>od', dbee.toggle, { desc = '[O]pen [D]bee UI' })
+end
+
+function M.set_capslock_keymaps()
+  local capslock = require 'capslock'
+  vim.keymap.set('n', '<leader>tl', function()
+    capslock.toggle 'n'
+  end, { desc = '[T]oggle soft Caps[L]ock' })
+  vim.keymap.set('i', '<C-j>', function()
+    capslock.toggle 'i'
+  end, { desc = 'Toggle soft CapsLock' })
+  vim.keymap.set('c', '<C-j>', function()
+    capslock.toggle 'c'
+  end, { desc = 'Toggle soft CapsLock' })
 end
 
 return M

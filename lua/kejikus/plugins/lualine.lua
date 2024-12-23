@@ -14,6 +14,55 @@ return {
       'folke/noice.nvim',
     },
     opts = {
+      winbar = {
+        lualine_b = {
+          -- {
+          --   '%=',
+          --   separator = '',
+          -- },
+          {
+            'filename',
+            path = 1, -- relative path
+            color = { gui = 'bold' },
+            cond = function()
+              return not IS_START()
+            end,
+          },
+        },
+        lualine_x = {
+          {
+            'diff',
+            symbols = {
+              modified = '~',
+              removed = '-',
+              added = '+',
+            },
+          },
+          {
+            'diagnostics',
+            sources = { 'nvim_diagnostic' },
+            sections = { 'error', 'warn', 'info', 'hint' },
+            symbols = {
+              error = ' ',
+              warn = ' ',
+              info = ' ',
+              hint = ' ',
+            },
+          },
+        },
+      },
+      inactive_winbar = {
+        lualine_a = {
+          {
+            'filename',
+            path = 1, -- relative path
+            color = { gui = 'bold' },
+            cond = function()
+              return not IS_START()
+            end,
+          },
+        },
+      },
       sections = {
         lualine_a = {
           {
@@ -28,43 +77,46 @@ return {
         },
         lualine_b = { 'branch' },
         lualine_c = {
-          {
-            'diff',
-            symbols = {
-              modified = '~',
-              removed = '-',
-              added = '+',
-            },
-          },
+          -- {
+          --   'diff',
+          --   symbols = {
+          --     modified = '~',
+          --     removed = '-',
+          --     added = '+',
+          --   },
+          -- },
           {
             require('noice').api.status.mode.get,
             cond = require('noice').api.status.mode.has,
           },
-          -- add empty section to center filename
           {
-            '%=',
-            separator = '',
+            require('capslock').status_string,
           },
+          -- add empty section to center filename
+          -- {
+          --   '%=',
+          --   separator = '',
+          -- },
           -- A hack to change the path type if the window gets too short. Lualine doesn't accept a function for the
           -- `path` option, so just swap out the entire component
-          {
-            'filename',
-            path = 1, -- full file path
-            color = { fg = '#ffffff', gui = 'bold' },
-            shorting_target = 30,
-            cond = function()
-              return IS_WIDE() and not IS_START()
-            end,
-          },
-          {
-            'filename',
-            path = 0, -- just the filename
-            color = { fg = '#ffffff', gui = 'bold' },
-            shorting_target = 30,
-            cond = function()
-              return not IS_WIDE() and not IS_START()
-            end,
-          },
+          -- {
+          --   'filename',
+          --   path = 1, -- full file path
+          --   color = { fg = '#ffffff', gui = 'bold' },
+          --   shorting_target = 30,
+          --   cond = function()
+          --     return IS_WIDE() and not IS_START()
+          --   end,
+          -- },
+          -- {
+          --   'filename',
+          --   path = 4, -- filename and parent dir
+          --   color = { fg = '#ffffff', gui = 'bold' },
+          --   shorting_target = 30,
+          --   cond = function()
+          --     return not IS_START()
+          --   end,
+          -- },
         },
         lualine_x = {},
         lualine_y = {
@@ -89,29 +141,29 @@ return {
               end
               return table.concat(names, ', ')
             end,
-            icon = ' LSP:',
+            -- icon = ' LSP:',
             color = { gui = 'bold' },
             cond = function()
               return IS_WIDE() and not IS_START()
             end,
           },
-          {
-            'diagnostics',
-            sources = { 'nvim_diagnostic' },
-            sections = { 'error', 'warn', 'info', 'hint' },
-            -- diagnostics_color = {
-            --   error = { fg = '#AF0000' },
-            --   warn = { fg = '#D75F00' },
-            --   info = { fg = '#0087AF' },
-            --   hint = { fg = '#008700' },
-            -- },
-            symbols = {
-              error = ' ',
-              warn = ' ',
-              info = ' ',
-              hint = ' ',
-            },
-          },
+          -- {
+          --   'diagnostics',
+          --   sources = { 'nvim_diagnostic' },
+          --   sections = { 'error', 'warn', 'info', 'hint' },
+          --   -- diagnostics_color = {
+          --   --   error = { fg = '#AF0000' },
+          --   --   warn = { fg = '#D75F00' },
+          --   --   info = { fg = '#0087AF' },
+          --   --   hint = { fg = '#008700' },
+          --   -- },
+          --   symbols = {
+          --     error = ' ',
+          --     warn = ' ',
+          --     info = ' ',
+          --     hint = ' ',
+          --   },
+          -- },
         },
         lualine_z = {
           { 'location' },
@@ -164,6 +216,7 @@ return {
         'quickfix',
         'toggleterm',
         'mason',
+        'nvim-dap-ui',
       },
     },
   },

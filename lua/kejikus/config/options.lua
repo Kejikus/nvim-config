@@ -105,6 +105,27 @@ vim.diagnostic.config {
   },
 }
 
+-- [[ Language mapping ]]
+local function escape(str)
+  -- These chars must be escaped in the langmap
+  local escape_chars = [[;,."|\]]
+  return vim.fn.escape(str, escape_chars)
+end
+
+-- Shift-modified char sets
+local en_shift = [[~QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>]]
+local ru_shift = [[ËЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ]]
+-- Normal char sets
+-- Here we don't want to have ',.' to 'бю' remaps to avoid recusive calls
+local en = [[`qwertyuiop[]asdfghjkl;'zxcvbnm]]
+local ru = [[ёйцукенгшщзхъфывапролджэячсмить]]
+
+--  `to` should be first ; `from` should be second
+vim.opt.langmap = vim.fn.join({
+  escape(ru_shift) .. ';' .. escape(en_shift),
+  escape(ru) .. ';' .. escape(en),
+}, ',')
+
 -- [[ Providers ]]
 -- Disable some default providers
 vim.g.loaded_node_provider = 0
