@@ -13,10 +13,10 @@ function M.set_common_keymaps()
   vim.keymap.set('n', 'N', 'Nzz', { desc = 'Previous search hit, stay at the center' })
 
   -- Scroll will stay at the center of the screen
-  vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Scroll down half-screen, stay at the center' })
-  vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Scroll up half-screen, stay at the center' })
-  vim.keymap.set('n', '<C-b>', '<C-d><C-d>zz', { desc = 'Scroll up (backwards) one screen, stay at the center' })
-  vim.keymap.set('n', '<C-f>', '<C-d><C-d>zz', { desc = 'Scroll down (forward) one screen, stay at the center' })
+  vim.keymap.set('n', '<C-d>', 'zz<C-d>zz', { desc = 'Scroll down half-screen, stay at the center' })
+  vim.keymap.set('n', '<C-u>', 'zz<C-u>zz', { desc = 'Scroll up half-screen, stay at the center' })
+  vim.keymap.set('n', '<C-b>', 'zz<C-d><C-d>zz', { desc = 'Scroll up (backwards) one screen, stay at the center' })
+  vim.keymap.set('n', '<C-f>', 'zz<C-d><C-d>zz', { desc = 'Scroll down (forward) one screen, stay at the center' })
 
   -- Paste over without losing what you're pasting
   vim.keymap.set('x', '<leader>p', '"_dP', { desc = 'Paste over preserving register' })

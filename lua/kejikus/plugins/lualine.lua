@@ -16,10 +16,6 @@ return {
     opts = {
       winbar = {
         lualine_b = {
-          -- {
-          --   '%=',
-          --   separator = '',
-          -- },
           {
             'filename',
             path = 1, -- relative path
@@ -28,8 +24,6 @@ return {
               return not IS_START()
             end,
           },
-        },
-        lualine_x = {
           {
             'diff',
             symbols = {
@@ -49,6 +43,10 @@ return {
               hint = ' ',
             },
           },
+          -- {
+          --   '%=',
+          --   separator = '',
+          -- },
         },
       },
       inactive_winbar = {
@@ -77,14 +75,6 @@ return {
         },
         lualine_b = { 'branch' },
         lualine_c = {
-          -- {
-          --   'diff',
-          --   symbols = {
-          --     modified = '~',
-          --     removed = '-',
-          --     added = '+',
-          --   },
-          -- },
           {
             require('noice').api.status.mode.get,
             cond = require('noice').api.status.mode.has,

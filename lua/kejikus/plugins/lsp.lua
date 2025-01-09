@@ -101,6 +101,9 @@ return {
         -- pylsp has plugins that are not installed by default
         -- Use :PylspInstall to install them
         pylsp = {
+          capabilities = {
+            rename = false,
+          },
           settings = {
             pylsp = {
               configurationSources = { 'flake8' },
@@ -112,7 +115,7 @@ return {
 
                 -- linters
                 flake8 = {
-                  enabled = true,
+                  enabled = false,
                   maxLineLength = 100,
                   indentSize = 4,
                 },
@@ -200,7 +203,7 @@ return {
             -- This handles overriding only values explicitly passed
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for tsserver)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+            server.capabilities = vim.tbl_deep_extend('keep', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
           end,
         },
