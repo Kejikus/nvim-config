@@ -70,9 +70,11 @@ return {
           settings = {
             basedpyright = {
               -- disableLanguageServices = true,
+              disableOrganizeImports = true,
               analysis = {
                 diagnosticSeverityOverrides = {
                   reportAny = false,
+                  reportDeprecated = false,
                   reportInvalidCast = false,
                   reportUnusedCallResult = false,
                   reportImplicitOverride = false,
@@ -101,15 +103,17 @@ return {
         -- pylsp has plugins that are not installed by default
         -- Use :PylspInstall to install them
         pylsp = {
-          capabilities = {
-            rename = false,
-          },
+          on_attach = function(client, buffer)
+            client.server_capabilities.hoverProvider = false
+            client.server_capabilities.renameProvider = false
+            client.server_capabilities.signatureHelpProvider = false
+          end,
           settings = {
             pylsp = {
               configurationSources = { 'flake8' },
               plugins = {
                 -- formatters
-                black = { enabled = true },
+                black = { enabled = false },
                 autopep8 = { enabled = false },
                 yapf = { enabled = false },
 
@@ -124,12 +128,12 @@ return {
                 ruff = {
                   enabled = true,
                   lineLength = 100,
-                  formatEnabled = true,
+                  formatEnabled = false,
                   format = { 'I' },
                 },
 
                 -- type checkers
-                pyre = { enabled = true },
+                pyre = { enabled = false },
                 mypy = { enabled = true },
 
                 -- autocompletion
@@ -147,7 +151,7 @@ return {
                 jedi_hover = { enabled = false },
 
                 -- import sorter
-                pyls_isort = { enabled = true },
+                pyls_isort = { enabled = false },
               },
             },
           },
@@ -194,6 +198,8 @@ return {
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
+        ensure_installed = {},
+        automatic_installation = false,
         handlers = {
           function(server_name)
             if vim.tbl_contains(disabled_servers, server_name) then
