@@ -38,6 +38,10 @@ require('lazy').setup({
   --    This is the easiest way to modularize your config.
 
   { import = 'kejikus.plugins' },
+  { import = 'kejikus.plugins.functional' },
+  { import = 'kejikus.plugins.lspconfig.lspconfig' },
+  { import = 'kejikus.plugins.code' },
+  { import = 'kejikus.plugins.ui' },
 
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
