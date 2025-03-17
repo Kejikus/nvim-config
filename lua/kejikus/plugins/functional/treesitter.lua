@@ -16,6 +16,7 @@ return {
         'vimdoc',
         'python',
         'helm',
+        'http',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,

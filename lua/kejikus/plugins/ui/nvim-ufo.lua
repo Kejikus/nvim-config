@@ -12,6 +12,11 @@ return {
       vim.o.foldlevel = 99
       vim.o.foldlevelstart = 99
       vim.o.foldenable = true
+
+      vim.keymap.set('n', 'zR', require('ufo').openAllFolds, { desc = 'Open all folds keeping foldlevel' })
+      vim.keymap.set('n', 'zM', require('ufo').closeAllFolds, { desc = 'Close all folds keeping foldlevel' })
+      vim.keymap.set('n', 'zr', require('ufo').openFoldsExceptKinds, { desc = 'Open all folds exept predefined kinds' })
+      vim.keymap.set('n', 'zm', require('ufo').closeFoldsWith, { desc = 'Close folds up to a level keeping foldlevel' })
     end,
 
     opts = {

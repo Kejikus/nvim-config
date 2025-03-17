@@ -71,23 +71,14 @@ return {
           yapf = { enabled = false },
 
           -- linters
-          flake8 = {
-            enabled = false,
-            maxLineLength = 100,
-            indentSize = 4,
-          },
+          flake8 = { enabled = false },
           pyflakes = { enabled = false },
           pycodestyle = { enabled = false },
-          ruff = {
-            enabled = true,
-            lineLength = 100,
-            formatEnabled = false,
-            format = { 'I' },
-          },
+          ruff = { enabled = false },
 
           -- type checkers
           pyre = { enabled = false },
-          mypy = { enabled = true },
+          mypy = { enabled = false },
 
           -- autocompletion
           jedi_completion = { fuzzy = true },
