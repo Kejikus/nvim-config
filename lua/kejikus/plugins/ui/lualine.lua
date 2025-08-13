@@ -89,6 +89,7 @@ return {
           -- },
           -- A hack to change the path type if the window gets too short. Lualine doesn't accept a function for the
           -- `path` option, so just swap out the entire component
+          --
           -- {
           --   'filename',
           --   path = 1, -- full file path
@@ -98,6 +99,7 @@ return {
           --     return IS_WIDE() and not IS_START()
           --   end,
           -- },
+          --
           -- {
           --   'filename',
           --   path = 4, -- filename and parent dir
@@ -196,6 +198,13 @@ return {
         component_separators = { left = '', right = '' },
         theme = 'auto',
         globalstatus = true,
+        disabled_filetypes = {
+          winbar = {
+            'neo-tree',
+            'gitlab',
+            'DiffviewFiles',
+          },
+        },
       },
       extensions = {
         'aerial',

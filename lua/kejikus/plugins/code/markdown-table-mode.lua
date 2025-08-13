@@ -1,6 +1,10 @@
 return {
   {
     'Kicamon/markdown-table-mode.nvim',
-    opts = {},
+    opts = {
+      options = {
+        pad_separator_line = true,
+      },
+    },
   },
 }

@@ -95,7 +95,7 @@ function M.set_telescope_keymaps()
   vim.keymap.set('n', '<leader>sd', telescope.diagnostics, { desc = '[S]earch [D]iagnostics' })
   vim.keymap.set('n', '<leader>sr', telescope.resume, { desc = '[S]earch [R]esume' })
   vim.keymap.set('n', '<leader>sc', telescope.commands, { desc = '[S]earch [C]ommands' })
-  vim.keymap.set('n', '<leader><leader>', telescope.buffers, { desc = '[ ] Find existing buffers' })
+  vim.keymap.set('n', '<leader>sb', telescope.buffers, { desc = '[S]earch [B]uffers' })
 
   vim.keymap.set('n', '<leader>s.', function()
     telescope.oldfiles { only_cwd = true }

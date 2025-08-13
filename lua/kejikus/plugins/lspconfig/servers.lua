@@ -1,4 +1,5 @@
-return {
+--- @type table<string, vim.lsp.Config>
+local servers = {
   -- clangd = {},
   -- rust_analyzer = {},
   -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -8,15 +9,28 @@ return {
   --
   -- But for many setups, the LSP (`tsserver`) will work just fine
   -- tsserver = {},
-  --
 
+  -- AI
+  vectorcode = {},
+
+  -- Linters and formatters
+  ['markdownlint-cli2'] = {},
+  hadolint = {},
+  stylua = {},
+  mdformat = {},
+  shellcheck = {},
+  mypy = {},
+  ruff = {},
+
+  -- LSP
   gopls = {},
   helm_ls = {},
-  ['markdownlint-cli2'] = {},
   yamlls = {},
   gitlab_ci_ls = {},
   dockerls = {},
   bashls = {},
+  marksman = {},
+  harper_ls = {},
 
   basedpyright = {
     settings = {
@@ -34,7 +48,7 @@ return {
             reportMatchNotExhaustive = 'information',
             reportUntypedFunctionDecorator = 'information',
             reportUnusedFunction = 'information',
-            reportImplicitStringConcatenation = 'information',
+            reportImplicitStringConcatenation = false,
             reportMissingTypeStubs = 'information',
             reportUnknownMemberType = 'information',
             reportUnknownVariableType = 'information',
@@ -56,11 +70,6 @@ return {
   -- pylsp has plugins that are not installed by default
   -- Use :PylspInstall to install them
   pylsp = {
-    on_attach = function(client, buffer)
-      client.server_capabilities.hoverProvider = false
-      client.server_capabilities.renameProvider = false
-      client.server_capabilities.signatureHelpProvider = false
-    end,
     settings = {
       pylsp = {
         configurationSources = { 'flake8' },
@@ -74,6 +83,7 @@ return {
           flake8 = { enabled = false },
           pyflakes = { enabled = false },
           pycodestyle = { enabled = false },
+          pydocstyle = { enabled = false },
           ruff = { enabled = false },
 
           -- type checkers
@@ -93,25 +103,16 @@ return {
           -- LSP services
           jedi_references = { enabled = false },
           jedi_hover = { enabled = false },
+          jedi_definition = { enabled = false },
 
           -- import sorter
           pyls_isort = { enabled = false },
 
           mccabe = { enabled = false },
+          preload = { enabled = false },
         },
       },
     },
-  },
-
-  pyre = {
-    root_dir = function(filename, _)
-      -- see :h lspconfig-root-detection
-      local root_files = {
-        'pyproject.toml',
-        'requirements.txt',
-      }
-      return require('lspconfig').util.root_pattern(unpack(root_files))(filename)
-    end,
   },
 
   lua_ls = {
@@ -128,5 +129,6 @@ return {
       },
     },
   },
-  stylua = {}, -- Used to format Lua code
 }
+
+return servers

@@ -42,6 +42,7 @@ require('lazy').setup({
   { import = 'kejikus.plugins.lspconfig.lspconfig' },
   { import = 'kejikus.plugins.code' },
   { import = 'kejikus.plugins.ui' },
+  { import = 'kejikus.plugins.ai' },
 
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).

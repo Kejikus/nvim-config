@@ -18,6 +18,11 @@ return {
         timeout_ms = 500,
         lsp_format = 'fallback',
       },
+      formatters = {
+        mdformat = {
+          prepend_args = { '--number' },
+        },
+      },
       formatters_by_ft = {
         lua = { 'stylua' },
         python = function(bufnr)
@@ -27,7 +32,7 @@ return {
             return { 'isort', 'black' }
           end
         end,
-        markdown = { 'prettier', 'markdownlint-cli2' },
+        markdown = { 'mdformat' },
       },
     },
   },

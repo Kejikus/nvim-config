@@ -12,7 +12,30 @@ return {
 
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
-      { 'folke/neodev.nvim', opts = {} },
+      { 'folke/neodev.nvim', enabled = false },
+
+      -- 'lazydev' replaces 'neodev' for nvim >= 0.10
+      {
+        'folke/lazydev.nvim',
+        ft = 'lua',
+        dependencies = {
+          {
+            'hrsh7th/nvim-cmp',
+            opts = function(_, opts)
+              opts.sources = opts.sources or {}
+              table.insert(opts.sources, {
+                name = 'lazydev',
+                group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+              })
+            end,
+          },
+        },
+        opts = {
+          library = {
+            { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+          },
+        },
+      },
     },
     config = function()
       --  This function gets run when an LSP attaches to a particular buffer.
@@ -28,6 +51,14 @@ return {
           if client and client.server_capabilities.documentHighlightProvider then
             require('kejikus.config.autocommands').enable_lsp_highlight(event)
           end
+
+          -- Disable some capabilities of "pylsp" to remove conflicts with basedpyright
+          if client and client.name == 'pylsp' and client.server_capabilities then
+            client.server_capabilities.hoverProvider = false
+            client.server_capabilities.renameProvider = false
+            client.server_capabilities.signatureHelpProvider = nil
+            client.server_capabilities.definitionProvider = nil
+          end
         end,
       })
 
@@ -42,6 +73,15 @@ return {
         lineFoldingOnly = true,
       }
 
+      --- Setup capabilities to support utf-16, since copilot.lua only works with utf-16
+      --- this is a workaround to the limitations of copilot language server
+      capabilities = vim.tbl_deep_extend('force', capabilities, {
+        offsetEncoding = { 'utf-16' },
+        general = {
+          positionEncodings = { 'utf-16' },
+        },
+      })
+
       -- Enable the following language servers
       --
       --  Add any additional override configuration in the following tables. Available keys are:
@@ -54,7 +94,6 @@ return {
 
       local disabled_servers = {
         -- 'basedpyright',
-        'pyre',
       }
 
       require('mason').setup()
@@ -64,23 +103,18 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-      require('mason-lspconfig').setup {
-        ensure_installed = {},
-        automatic_installation = false,
-        handlers = {
-          function(server_name)
-            if vim.tbl_contains(disabled_servers, server_name) then
-              return
-            end
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for tsserver)
-            server.capabilities = vim.tbl_deep_extend('keep', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
-      }
+      for server_name, server in pairs(servers) do
+        if vim.tbl_contains(disabled_servers, server_name) then
+          return
+        end
+        -- This handles overriding only values explicitly passed
+        -- by the server configuration above. Useful when disabling
+        -- certain features of an LSP (for example, turning off formatting for tsserver)
+        server.capabilities = vim.tbl_deep_extend('keep', {}, capabilities, server.capabilities or {})
+        vim.lsp.config(server_name, server)
+      end
+
+      require('mason-lspconfig').setup()
     end,
   },
 }

@@ -7,17 +7,54 @@ return {
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'sainnhe/everforest',
+    enabled = false,
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       vim.g.everforest_background = 'hard'
       vim.g.everforest_better_performance = 1
       vim.cmd.colorscheme 'everforest'
 
-      -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
+    end,
+  },
+  {
+    'rebelot/kanagawa.nvim',
+    priority = 1000,
+    enabled = true,
+    init = function()
+      require('kanagawa').setup {
+        commentStyle = {},
+        keywordStyle = {},
+        transparent = true,
+        -- wave, dragon or lotus
+        theme = 'wave',
+        background = {
+          dark = 'wave',
+        },
+      }
+      vim.cmd.colorscheme 'kanagawa'
+    end,
+  },
+  {
+    'everviolet/nvim',
+    name = 'evergarden',
+    priority = 1000,
+    enabled = false,
+    init = function()
+      require('evergarden').setup {
+        theme = {
+          variant = 'spring',
+          accent = 'green',
+        },
+        editor = {
+          transparent_background = true,
+        },
+        style = {
+          comment = {},
+          keyword = {},
+        },
+      }
+      vim.cmd.colorscheme 'evergarden'
     end,
   },
 }
